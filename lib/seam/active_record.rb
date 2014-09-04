@@ -12,14 +12,15 @@ module Seam
         def self.find_by_effort_id effort_id
           record = SeamEffort.where(effort_id: effort_id).first
           return nil unless record
-          Seam::Effort.parse record.data
+          data = HashWithIndifferentAccess.new record.data
+          Seam::Effort.parse data
         end
 
         def self.find_all_pending_executions_by_step step
           SeamEffort.where(next_step: step)
                     .where('next_execute_at >= ?', Time.now)
                     .map do |record|
-                      Seam::Effort.parse record.data
+                      Seam::Effort.parse HashWithIndifferentAccess.new(record.data)
                     end
         end
 
@@ -41,22 +42,22 @@ module Seam
         #end
 
         def self.save effort
-          effort = SeamEffort.where(effort_id: effort.id).first
-          effort.next_step = effort.next_step
-          effort.next_execute_at = effort.next_execute_at
-          effort.complete = effort.complete
-          effort.data = effort.to_hash
-          effort.save!
+          record = SeamEffort.where(effort_id: effort.id).first
+          record.next_step = effort.next_step
+          record.next_execute_at = effort.next_execute_at
+          record.complete = effort.complete
+          record.data = effort.to_hash
+          record.save!
         end
 
         def self.create effort
-          effort = SeamEffort.new
-          effort.effort_id = efforrt.id
-          effort.next_step = effort.next_step
-          effort.next_execute_at = effort.next_execute_at
-          effort.complete = effort.complete
-          effort.data = effort.to_hash
-          effort.save!
+          record = SeamEffort.new
+          record.effort_id = effort.id
+          record.next_step = effort.next_step
+          record.next_execute_at = effort.next_execute_at
+          record.complete = effort.complete
+          record.data = effort.to_hash
+          record.save!
         end
 
         def self.all

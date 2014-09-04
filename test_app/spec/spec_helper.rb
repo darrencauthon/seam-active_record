@@ -9,3 +9,5 @@ require 'subtle'
 require 'timecop'
 require 'contrast'
 require 'mocha/setup'
+
+Seam::ActiveRecord.load
