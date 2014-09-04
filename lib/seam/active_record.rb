@@ -4,7 +4,7 @@ require_relative "active_record/version"
 
 module Seam
   module ActiveRecord
-    def self.load
+    def self.setup
       overwrite_the_persistence_layer
     end
 
