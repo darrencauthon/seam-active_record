@@ -38,3 +38,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'seam'
+gem 'subtle', group: [:development, :test]
+gem 'timecop', group: [:development, :test]
+gem 'contrast', group: [:development, :test]
+gem 'mocha', group: [:development, :test]
