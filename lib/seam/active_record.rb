@@ -1,4 +1,5 @@
 require 'seam'
+require_relative '../seam_effort'
 require_relative "active_record/version"
 
 module Seam
