@@ -1,6 +1,6 @@
 # Seam::ActiveRecord
 
-TODO: Write a gem description
+Active Record support for seam.
 
 ## Installation
 
@@ -8,17 +8,33 @@ Add this line to your application's Gemfile:
 
     gem 'seam-active_record'
 
-And then execute:
+You'll also need to add the following migration script:
 
-    $ bundle
+```ruby
+class CreateSeamEfforts < ActiveRecord::Migration
+  def change
+    create_table :seam_efforts do |t|
+      t.string :effort_id
+      t.string :next_step
+      t.datetime :next_execute_at
+      t.boolean :complete
+      t.text :data
 
-Or install it yourself as:
-
-    $ gem install seam-active_record
+      t.timestamps
+    end
+  end
+end
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+In an initializer or some other sort of your application's setup, call
+
+```
+Seam::ActiveRecord.setup
+```
+
+Now your workflows will be run through an ActiveRecord model, ```SeamEffort```.
 
 ## Contributing
 
