@@ -18,7 +18,7 @@ module Seam
 
         def self.find_all_pending_executions_by_step step
           SeamEffort.where(next_step: step)
-                    .where('next_execute_at >= ?', Time.now)
+                    .where('next_execute_at <= ?', Time.now)
                     .map do |record|
                       Seam::Effort.parse HashWithIndifferentAccess.new(record.data)
                     end
@@ -46,7 +46,7 @@ module Seam
           record = SeamEffort.where(effort_id: effort.id).first
           record.next_step = effort.next_step
           record.next_execute_at = effort.next_execute_at
-          record.complete = effort.complete
+          record.complete = effort.complete || false
           record.data = effort.to_hash
           record.save!
         end
