@@ -40,4 +40,20 @@ describe Seam::Effort do
       second_effort.to_hash.contrast_with! Seam::Effort.find(second_effort.id).to_hash, [:id, :created_at]
     end
   end
+
+  describe "to effort" do
+
+    it "should find the effort by id" do
+      flow.start
+      effort = flow.start
+      flow.start
+
+      result = SeamEffort.all[1].to_effort
+
+      result.is_a?(Seam::Effort).must_equal true
+      result.id.must_equal effort.id
+    end
+
+  end
+
 end
